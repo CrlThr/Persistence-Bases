@@ -1,5 +1,5 @@
 using System;
-using System.Security.Cartography;
+using System.Security.Cryptography;
 using System.Text;
 
 public static class PassworldManager
@@ -12,10 +12,10 @@ public static class PassworldManager
     // Generated hash and salt based on password
     public static (string hashB64, string saltB64) HashPassword(string password)
     {
-        byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
+        byte[] salt = RandomNumberGenerator.GetBytes(Saltsize);
 
         var pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations, HashAlgorithmName.SHA256);
-        byte[] hash = pbkdf2.GetBytes(HashSize);
+        byte[] hash = pbkdf2.GetBytes(Hashsize);
 
         return (Convert.ToBase64String(hash), Convert.ToBase64String(salt));
     }
@@ -27,9 +27,11 @@ public static class PassworldManager
         byte[] storedHash = Convert.FromBase64String(storedHashB64);
 
         var pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations, HashAlgorithmName.SHA256);
-        byte[] computedHash = pbkdf2.GetBytes(HashSize);
+        byte[] computedHash = pbkdf2.GetBytes(Hashsize);
 
         return CryptographicOperations.FixedTimeEquals(storedHash, computedHash);
     }
+
+
 
 }

@@ -1,0 +1,12 @@
+using System.Text.Json;
+
+var payload = new
+{
+    Salt = Convert.ToBase64String(salt),
+    Nonce = Convert.ToBase64String(nonce),
+    Tag = Convert.ToBase64String(tag),
+    Data = Convert.ToBase64String(ciphertext)
+};
+
+string encryptedJson = JsonSerializer.Serialize(payload, new JsonSerializerOptions { WriteIndented = true });
+File.WriteAllText("save.enc", encryptedJson);
