@@ -80,7 +80,7 @@ public class Game
         Console.WriteLine("You Win!");
     }
 
-    // Nouvelle méthode qui attend un appui pour rejouer ou quitter
+    // Nouvelle mï¿½thode qui attend un appui pour rejouer ou quitter
     private bool WaitForReplay()
     {
         Console.WriteLine();
